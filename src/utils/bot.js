@@ -1,10 +1,6 @@
 const { MediaWikiJS } = require('@lavgup/mediawiki.js')
-
-const bot = new MediaWikiJS({
-  url: 'https://zh.moegirl.org.cn/api.php',
-  botUsername: '',
-  botPassword: '',
-})
+const config = require('../config.json')
+const bot = new MediaWikiJS(config)
 
 module.exports = {
   bot,
