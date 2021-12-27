@@ -7,11 +7,11 @@
 const { MediaWikiJS } = require('@lavgup/mediawiki.js')
 
 // 初始化实例
-// 注意：为了简化代码，后面的例子中，这个构造函数被统一放在了 utils 文件夹中
 const bot = new MediaWikiJS({
   // wiki 的 api.php 的地址，对于萌娘百科来说是：
   url: 'https://zh.moegirl.org.cn/api.php',
   // 在“创建您的 bot 账号”步骤中最后一步您得到的账号与密码信息
+  // 注意：并不是你本人登录网页时用的的用户名和密码
   botUsername: '',
   botPassword: '',
 })
