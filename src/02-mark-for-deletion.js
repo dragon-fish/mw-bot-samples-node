@@ -3,7 +3,7 @@
  * @desc 在这个例子中，我们会为一批页面顶部插入即将删除的标记
  */
 
-const { bot } = require('./utils/bot')
+const { createBotInstance } = require('./bot')
 
 // 一个数组，包含即将挂删页面的标题
 const pageList = [
@@ -13,14 +13,14 @@ const pageList = [
   'TNND你删我页面是吧',
 ]
 
-bot
-  .login()
-  .then(() =>
+createBotInstance()
+  .then((bot) =>
     Promise.all(
       pageList.map((title) =>
-        bot.prepend({
+        bot.postWithEditToken({
+          action: 'edit',
           title,
-          content: '{{即将删除|不符合规定的页面}}\n\n',
+          prependtext: '{{即将删除|不符合规定的页面}}\n\n',
           summary: '挂删：不符合规定的页面',
         })
       )

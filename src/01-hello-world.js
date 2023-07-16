@@ -4,22 +4,32 @@
  */
 
 // 导入依赖
-const { MediaWikiJS } = require('@lavgup/mediawiki.js')
-const config = require('./config.js')
+require('dotenv').config()
+const { env } = require('node:process')
+const { MediaWikiApi } = require('wiki-saikou')
 
-// 初始化实例
-const bot = new MediaWikiJS(config)
+// Main
+;(async () => {
+  // 初始化实例
+  // 注意，这里是为了方便直观展示创建bot实例并登录的过程
+  // 后面的例子我们会使用 createBotInstance 函数来创建实例，它封装在 src/bot.js 中，这样就不用每次都登录了
+  const bot = new MediaWikiApi(env.MW_API_ENDPOINT, {
+    query: {
+      bot: true,
+    },
+  })
 
-bot
   // 登录，并等待网络连接
-  .login()
+  await bot.login(env.MW_USERNAME, env.MW_PASSWORD)
+
   // 修改页面的内容
-  .then(() =>
-    bot.edit({
-      title: 'Project:Sandbox',
-      content: 'hello, wrold',
+  bot
+    .postWithEditToken({
+      action: 'edit',
+      title: 'Help:Sandbox',
+      text: 'hello, wrold',
       summary: 'Node.js bot test',
     })
-  )
-  // 打印 API 返回结果
-  .then(console.log, console.error)
+    // 打印 API 返回结果
+    .then(console.log, console.error)
+})()
