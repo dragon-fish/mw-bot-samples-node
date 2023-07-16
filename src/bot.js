@@ -16,10 +16,12 @@ async function createBotInstance(noCache = false) {
         bot: true,
       },
     })
-    _cachedLogin = api.login(env.MW_USERNAME, env.MW_PASSWORD).catch((e) => {
-      _cachedInstance = null
-      throw e
-    })
+    _cachedLogin = api
+      .login(env.MW_BOT_USERNAME, env.MW_BOT_PASSWORD)
+      .catch((e) => {
+        _cachedInstance = null
+        throw e
+      })
   }
   await _cachedLogin
   return _cachedInstance

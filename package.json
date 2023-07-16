@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "dotenv": "^16.3.1",
+    "tslib": "^2.6.0",
     "wiki-saikou": "3.0.0-rc.1"
   }
 }

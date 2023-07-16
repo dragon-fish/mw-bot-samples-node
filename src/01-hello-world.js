@@ -20,13 +20,18 @@ const { MediaWikiApi } = require('wiki-saikou')
   })
 
   // 登录，并等待网络连接
-  await bot.login(env.MW_USERNAME, env.MW_PASSWORD)
+  const { lgusername } = await bot
+    .login(env.MW_BOT_USERNAME, env.MW_BOT_PASSWORD)
+    .catch((e) => {
+      console.error('登录失败', e)
+      throw e
+    })
 
   // 修改页面的内容
   bot
     .postWithEditToken({
       action: 'edit',
-      title: 'Help:Sandbox',
+      title: `User:${lgusername}/sandbox/bot-test`,
       text: 'hello, wrold',
       summary: 'Node.js bot test',
     })
